@@ -1,0 +1,21 @@
+- name: Copy configuration files.
+  copy: src={{ item }} dest=/etc/postfix/{{ item }}
+  with_items:
+    - recipient_access
+    - transport
+  notify: 
+    - remap recipient_access
+    - remap transport
+    - reload postfix
+
+- name: Template Postfix Configuration
+  template: src=main.j2 dest=/etc/postfix/main.cf
+  notify: restart postfix
+
+- name: Copy Postfix Service Configuration
+  copy: src=master.cf dest=/etc/postfix/master.cf
+  notify: restart postfix
+
+- name: Template header checks
+  template: src=header_checks.j2 dest=/etc/postfix/header_checks
+  notify: reload postfix

@@ -1,0 +1,13 @@
+- name: reload postfix
+  service: name=postfix state=reloaded enabled=yes
+
+- name: restart postfix
+  service: name=postfix state=restarted enabled=yes
+
+- name: remap recipient_access
+  shell: postmap /etc/postfix/recipient_access
+
+- name: remap transport
+  shell: postmap /etc/postfix/transport
+
+

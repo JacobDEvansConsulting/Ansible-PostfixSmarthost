@@ -1,0 +1,7 @@
+# {{ ansible_managed}}
+/^Received:/     	    IGNORE
+/^X-Originating-IP:/        IGNORE
+/^X-Mailer:/                IGNORE
+/^Mime-Version:/            IGNORE
+/^User-Agent:/              IGNORE
+/^Message-ID:\s+<(.*?).JavaMail.zimbra@jacobdevans.com>/ REPLACE Message-ID: <$1@{{ ansible_fqdn }}>
